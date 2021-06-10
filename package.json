@@ -1,0 +1,28 @@
+{
+  "name": "@enigmaoffline/node-file-tree",
+  "version": "1.0.0",
+  "description": "Simple File Tree for NodeJS",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsc"
+  },
+  "keywords": [
+    "FileTree",
+    "Tree",
+    "File",
+    "FileSystem"
+  ],
+  "author": "enigmaoffline",
+  "license": "MIT",
+  "dependencies": {
+    "fs": "0.0.1-security",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "@types/node": "^15.12.2"
+  }
+}

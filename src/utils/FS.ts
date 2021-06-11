@@ -8,7 +8,7 @@ export class FS {
     static getDirs = (dir: string, includeHidden = false, filter: FilterCallBack = (name: string) => true): Array<string> => fs
         .readdirSync(dir)
         .filter(name => (
-            (includeHidden || name.startsWith('.')) &&
+            (includeHidden || !name.startsWith('.')) &&
             fs.statSync(path.join(dir, name)).isDirectory() &&
             filter
         ));
@@ -16,11 +16,11 @@ export class FS {
     static getFiles = (dir: string, includeHidden = false, filter: FilterCallBack = (name: string) => true): Array<string> => fs
         .readdirSync(dir)
         .filter(name => (
-            (includeHidden || name.startsWith('.')) &&
+            (includeHidden || !name.startsWith('.')) &&
             fs.statSync(path.join(dir, name)).isFile() &&
             filter
         ));
 
     static getNameFromPath = (pathname: string): string => 
-        pathname.substring(pathname.lastIndexOf(path.sep) + 1);
+        pathname.substring(pathname.lastIndexOf('/') + 1);
 }

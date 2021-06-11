@@ -10,6 +10,10 @@
   "scripts": {
     "build": "tsc"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lochungtin/node-file-tree.git"
+  },
   "keywords": [
     "FileTree",
     "Tree",

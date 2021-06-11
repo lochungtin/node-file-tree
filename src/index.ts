@@ -5,10 +5,12 @@ import { FS } from './utils/FS';
 
 type TravelAction = (node: FNode, layer: number) => void;
 
-export class FTree {
+class FTree {
 
     private rootDir: string;
     private root: FNode;
+
+    private ignoreNodeModules: boolean = true;
 
     /**
      * creates a new File Tree Object
@@ -49,6 +51,14 @@ export class FTree {
     }
 
     /**
+     * ignores node modules when travelling the tree
+     * default set to true
+     * @param {boolean} ignore - value to be set
+     * @returns {void}
+     */
+    setIgnoreNodeModules = (ignore: boolean) => this.ignoreNodeModules = ignore;
+
+    /**
      * Depth first recursion to travel the file tree
      * Allows custom actions when file and directories are reached
      * @param onFile - callback function when a file is reached during recursion
@@ -82,6 +92,7 @@ export class FTree {
             .forEach(node => parent.addFiles(node));
 
         FS.getDirs(pPath)
+            .filter(name => name !== 'node_modules' || !this.ignoreNodeModules)
             .map(name => new FNode(path.join(pPath, name), parent))
             .forEach(node => {
                 parent.addDirs(node);
@@ -89,3 +100,5 @@ export class FTree {
             });
     }
 }
+
+export = FTree;

@@ -10,6 +10,10 @@ export class FTree {
     private rootDir: string;
     private root: FNode;
 
+    /**
+     * creates a new File Tree Object
+     * @param {string} rootDir - path to the root directory of the created tree
+     */
     constructor(rootDir: string) {
         this.rootDir = rootDir;
         this.root = new FNode(rootDir, null);
@@ -17,10 +21,22 @@ export class FTree {
         this.update();
     }
 
+    /**
+     * gets the root directory of the file tree
+     * @returns {FNode} - root directory node
+     */
     getRoot = (): FNode => this.root;
 
+    /**
+     * gets the path of the root directory of the file tree
+     * @returns {string} - path of root directory
+     */
     getRootDir = (): string => this.rootDir;
 
+    /**
+     * prints the file tree using depth first recursion
+     * @returns {void}
+     */
     printTree = () => this.travel((node, layer) => console.log(`F:|${this.getHyphens(layer * 2)}> ${node.getName()}`), (node, layer) => console.log(`D:|${this.getHyphens(layer * 2)}> ${node.getName()}`));
 
     private getHyphens = (num: number): string => {
@@ -32,6 +48,13 @@ export class FTree {
         return rt;
     }
 
+    /**
+     * Depth first recursion to travel the file tree
+     * Allows custom actions when file and directories are reached
+     * @param onFile - callback function when a file is reached during recursion
+     * @param onDir  - callback function when a directory is reacehd during recursion
+     * @returns {void}
+     */
     travel = (onFile: TravelAction, onDir: TravelAction) => this.travelRecur(this.root, onFile, onDir);
 
     private travelRecur = (root: FNode, onFile: TravelAction, onDir: TravelAction, layer = 0) => {
@@ -43,7 +66,14 @@ export class FTree {
         root.getFiles().forEach(node => onFile(node, layer));
     }
 
-    update = () => this.updateRecur(this.root);
+    /**
+     * Crawls through the file tree again and update the nodes to match the file system
+     * @returns {void}
+     */
+    update = () => {
+        this.root.clearChildren();
+        this.updateRecur(this.root);
+    }
 
     private updateRecur = (parent: FNode): void => {
         let pPath = parent.getPath();

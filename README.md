@@ -28,3 +28,5 @@ ft.travel(
     }
 );
 ```
+
+<a href="https://github.com/lochungtin/node-file-tree/blob/master/LICENSE">LICENSE - MIT - Lo Chung Tin</a>
